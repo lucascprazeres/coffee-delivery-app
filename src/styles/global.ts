@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
-export const GlobalStyle = createGlobalStyle`::after
+export const GlobalStyle = createGlobalStyle`
   :root {
     --base-title: #272221;
     --base-subtitle: #403937;
@@ -36,6 +36,7 @@ export const GlobalStyle = createGlobalStyle`::after
   }
 
   h1, h2, h3, h4, h5 {
+    color: var(--base-title);
     font-family: 'Baloo 2', cursive;
   }
 
