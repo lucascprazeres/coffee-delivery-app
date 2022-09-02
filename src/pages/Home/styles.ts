@@ -9,6 +9,10 @@ export const HomeContainer = styled.div`
 
 export const HomeContent = styled.main`
   height: 100%;
+`
+
+export const HeroSection = styled.section`
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,5 +41,18 @@ export const HomeContent = styled.main`
     align-items: center;
     flex-wrap: wrap;
     gap: 40px;
+  }
+`
+
+export const ProductsSection = styled.section`
+  height: 100%;
+
+  max-width: 1120px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 32px;
+    color: var(--base-subtitle);
+    margin-bottom: 3rem;
   }
 `

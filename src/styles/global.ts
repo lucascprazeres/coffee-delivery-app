@@ -44,4 +44,8 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     color: var(--base-text);
   }
+
+  ul {
+    list-style: none;
+  }
 `
