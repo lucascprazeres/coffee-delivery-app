@@ -9,16 +9,16 @@ export const ProductCardContainer = styled.div`
   background: var(--base-card);
   height: auto;
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
   border-top-right-radius: 36px;
   border-bottom-left-radius: 36px;
 
   @media ${breakpoints.tablet} {
-    width: 256px;
+    width: 16rem;
   }
 
   img {
-    margin-top: -2rem;
+    margin-top: -2.5rem;
   }
 
   ul {
@@ -44,9 +44,9 @@ export const ProductCardContainer = styled.div`
 
   p {
     text-align: center;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--base-label);
-    line-height: 18px;
+    line-height: 1.125rem;
   }
 
   footer {
@@ -71,8 +71,8 @@ export const ProductCardContainer = styled.div`
     }
 
     a {
-      height: 38px;
-      width: 38px;
+      height: 2.5rem;
+      width: 2.5rem;
       border-radius: 6px;
       background: var(--purple-dark);
 

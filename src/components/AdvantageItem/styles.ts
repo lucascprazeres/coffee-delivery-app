@@ -3,10 +3,10 @@ import styled from 'styled-components'
 export const AdvantageItemContainer = styled.li`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 
   p {
-    font-size: 16px;
+    font-size: 1rem;
   }
 `
 
@@ -17,10 +17,10 @@ interface IconContainerProps {
 export const IconContainer = styled.span<IconContainerProps>`
   background-color: ${(props) => props.bgColor};
 
-  height: 32px;
-  width: 32px;
+  height: 2rem;
+  width: 2rem;
 
-  border-radius: 16px;
+  border-radius: 1rem;
 
   display: flex;
   align-items: center;
