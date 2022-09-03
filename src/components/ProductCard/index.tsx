@@ -1,31 +1,28 @@
+import { Product } from '../../pages/Home/constants'
 import { ProductCardContainer } from './styles'
 
 interface ProductCardProps {
-  imgUrl: string
-  title: string
-  categories: string[]
-  description: string
-  price: number
+  product: Product
 }
 
-export function ProductCard(props: ProductCardProps) {
+export function ProductCard({ product }: ProductCardProps) {
   const priceFormated = new Intl.NumberFormat('pt-br', {
     style: 'currency',
     currency: 'BRL',
   })
-    .format(props.price / 100)
+    .format(product.price / 100)
     .replace(/[R$]/g, '') // remove R$
 
   return (
     <ProductCardContainer>
-      <img src={props.imgUrl} alt={`Xícara de ${props.title}`} />
+      <img src={product.imgUrl} alt={`Xícara de ${product.title}`} />
       <ul>
-        {props.categories.map((feature) => (
+        {product.categories.map((feature) => (
           <li key={feature}>{feature}</li>
         ))}
       </ul>
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
+      <h3>{product.title}</h3>
+      <p>{product.description}</p>
 
       <footer>
         <span>

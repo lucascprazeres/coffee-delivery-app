@@ -4,6 +4,7 @@ import {
   HeroSection,
   HomeContainer,
   HomeContent,
+  ProductList,
   ProductsSection,
 } from './styles'
 
@@ -11,7 +12,7 @@ import { AdvantageItem } from '../../components/AdvantageItem'
 import { ProductCard } from '../../components/ProductCard'
 
 import bgHeroImg from '../../assets/images/bg-hero.png'
-import expressoImg from '../../assets/images/expresso-tradicional.png'
+import { PRODUCTS } from './constants'
 
 export function Home() {
   return (
@@ -59,13 +60,13 @@ export function Home() {
         <ProductsSection>
           <h2>Nossos cafés</h2>
 
-          <ProductCard
-            imgUrl={expressoImg}
-            title="Expresso Tradicional"
-            description="O tradicional café feito com água quente e grãos moídos"
-            categories={['Tradicional', 'gelado']}
-            price={990}
-          />
+          <ProductList>
+            {PRODUCTS.map((product) => (
+              <li key={product.id}>
+                <ProductCard product={product} />
+              </li>
+            ))}
+          </ProductList>
         </ProductsSection>
       </HomeContent>
     </HomeContainer>
