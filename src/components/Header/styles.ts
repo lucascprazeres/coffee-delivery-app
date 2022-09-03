@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
   max-width: 70rem;
   margin: 0 auto;
 
-  padding: 2rem;
+  padding: 1rem;
 
   div {
     display: flex;
@@ -28,6 +28,29 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    text-decoration: none;
+
+    span {
+      height: 1.25rem;
+      width: 1.25rem;
+      border-radius: 0.625rem;
+      color: var(--white);
+      background: var(--yellow-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+
+      position: absolute;
+      top: -0.25rem;
+      right: -0.25rem;
+    }
+  }
+
+  @media ${breakpoints.desktop} {
+    padding: 2rem;
   }
 
   @media ${breakpoints.desktop} {

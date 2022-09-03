@@ -5,6 +5,8 @@ import { MapPin, ShoppingCart } from 'phosphor-react'
 import { Link } from 'react-router-dom'
 
 export function Header() {
+  const productAmount = 4
+
   return (
     <HeaderContainer>
       <Link to="/">
@@ -18,6 +20,9 @@ export function Header() {
         </Location>
 
         <Link to="/checkout">
+          <If condition={productAmount > 0}>
+            <span>{productAmount}</span>
+          </If>
           <ShoppingCart color="#C47F17" size={20} weight="fill" />
         </Link>
       </div>
