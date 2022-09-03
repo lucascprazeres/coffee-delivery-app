@@ -6,7 +6,7 @@ export const HomeContainer = styled.div`
   height: calc(100vh);
   background: url('/src/assets/images/blur-background.png') no-repeat center;
   background-size: cover;
-  padding: 0 2rem;
+  padding: 0 1rem;
 
   @media ${breakpoints.tablet} {
     height: calc(60vh);
