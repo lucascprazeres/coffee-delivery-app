@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { breakpoints } from '../../styles/breakpoints'
 
 export const CheckoutContainer = styled.div`
@@ -110,24 +110,34 @@ export const InputGroup = styled.div`
 
 export const PaymentMethodSelector = styled.fieldset`
   position: relative;
-  padding: 6rem 1rem 1rem;
+  padding: 7em 1rem 1rem;
   height: 100%;
   background: var(--base-card);
   width: 100%;
   border-radius: 6px;
 
   border: none;
+
+  @media ${breakpoints.tablet} {
+    padding: 6em 1rem 1rem;
+  }
 `
 
 export const PaymentMethods = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
 `
 
-export const PaymentMethod = styled.label`
+interface PaymentMethodProps {
+  isActive: boolean
+}
+
+export const PaymentMethod = styled.label<PaymentMethodProps>`
+  position: relative;
   height: 50px;
-  width: 178px;
+  width: 100%;
   background: var(--base-button);
   font-size: 0.75rem;
   border-radius: 6px;
@@ -141,6 +151,22 @@ export const PaymentMethod = styled.label`
   }
 
   input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 0;
+    width: 0;
     visibility: hidden;
+  }
+
+  ${(props) =>
+    props.isActive &&
+    css`
+      background: var(--purple-light);
+      border: 1px solid var(--purple);
+    `}
+
+  @media ${breakpoints.tablet} {
+    width: 178px;
   }
 `

@@ -1,4 +1,5 @@
-import { Bank, CreditCard, CurrencyDollar, MapPin, Money } from 'phosphor-react'
+import { CreditCard, CurrencyDollar, MapPin } from 'phosphor-react'
+import { useForm } from 'react-hook-form'
 import { Input } from '../../components/Input'
 import {
   CheckoutContainer,
@@ -12,6 +13,10 @@ import {
 } from './styles'
 
 export function Checkout() {
+  const { register, watch } = useForm()
+
+  const paymentMethod = watch('payment-method')
+
   return (
     <CheckoutContainer>
       <div>
@@ -27,19 +32,28 @@ export function Checkout() {
               </div>
             </Legend>
 
-            <Input placeholder="CEP" maxWidth={12.5} />
+            <Input placeholder="CEP" maxWidth={12.5} {...register('CEP')} />
 
-            <Input placeholder="Rua" />
+            <Input placeholder="Rua" {...register('street')} />
 
             <InputGroup>
-              <Input type="number" placeholder="Número" maxWidth={7} />
-              <Input placeholder="Complemento" />
+              <Input
+                type="number"
+                placeholder="Número"
+                maxWidth={7}
+                {...register('street_number')}
+              />
+              <Input placeholder="Complemento" {...register('complement')} />
             </InputGroup>
 
             <InputGroup>
-              <Input placeholder="Bairro" maxWidth={12.5} />
-              <Input placeholder="Cidade" />
-              <Input placeholder="UF" maxWidth={3.75} />
+              <Input
+                placeholder="Bairro"
+                maxWidth={12.5}
+                {...register('neighborhood')}
+              />
+              <Input placeholder="Cidade" {...register('city')} />
+              <Input placeholder="UF" maxWidth={3.75} {...register('state')} />
             </InputGroup>
           </Address>
 
@@ -56,22 +70,43 @@ export function Checkout() {
             </Legend>
 
             <PaymentMethods>
-              <PaymentMethod htmlFor="credit-card">
+              <PaymentMethod
+                htmlFor="credit-card"
+                isActive={paymentMethod === 'credit-card'}
+              >
                 <CreditCard color="#8047F8" size={16} />
                 CARTÃO DE CRÉDITO
-                <input type="radio" name="payment-method" id="credit-card" />
+                <input
+                  type="radio"
+                  id="credit-card"
+                  value="credit-card"
+                  {...register('payment-method')}
+                />
               </PaymentMethod>
 
-              <PaymentMethod htmlFor="debit-card">
-                <Bank color="#8047F8" size={16} />
+              <PaymentMethod
+                htmlFor="debit-card"
+                isActive={paymentMethod === 'debit-card'}
+              >
+                <CreditCard color="#8047F8" size={16} />
                 CARTÃO DE DÉBITO
-                <input type="radio" name="payment-method" id="debit-card" />
+                <input
+                  type="radio"
+                  id="debit-card"
+                  value="debit-card"
+                  {...register('payment-method')}
+                />
               </PaymentMethod>
 
-              <PaymentMethod htmlFor="cash">
-                <Money color="#8047F8" size={16} />
+              <PaymentMethod htmlFor="cash" isActive={paymentMethod === 'cash'}>
+                <CreditCard color="#8047F8" size={16} />
                 DINHEIRO
-                <input type="radio" name="payment-method" id="cash" />
+                <input
+                  type="radio"
+                  id="cash"
+                  value="cash"
+                  {...register('payment-method')}
+                />
               </PaymentMethod>
             </PaymentMethods>
           </PaymentMethodSelector>
