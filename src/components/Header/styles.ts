@@ -19,7 +19,7 @@ export const HeaderContainer = styled.header`
     gap: 0.75rem;
   }
 
-  a {
+  a:last-child {
     height: 2.5rem;
     width: 2.5rem;
     border-radius: 6px;
