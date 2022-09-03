@@ -7,9 +7,9 @@ export const ProductCardContainer = styled.div`
   align-items: center;
   gap: 1rem;
   background: var(--base-card);
-  height: 310px;
+  height: auto;
   width: 100%;
-  padding: 1rem;
+  padding: 2rem;
   border-top-right-radius: 36px;
   border-bottom-left-radius: 36px;
 
@@ -33,7 +33,8 @@ export const ProductCardContainer = styled.div`
     padding: 0.25rem 0.5rem;
     border-radius: 100px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
+    text-transform: uppercase;
   }
 
   h3 {
