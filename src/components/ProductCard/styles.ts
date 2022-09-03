@@ -57,5 +57,22 @@ export const ProductCardContainer = styled.div`
       font-size: 24px;
       font-weight: 800;
     }
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    a {
+      height: 38px;
+      width: 38px;
+      border-radius: 6px;
+      background: var(--purple-dark);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `
