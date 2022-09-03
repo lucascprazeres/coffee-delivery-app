@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ProductAmountInputContainer = styled.div`
   width: 72px;
-  height: 38px;
+  height: 2.5rem;
   background: var(--base-button);
   border-radius: 6px;
 

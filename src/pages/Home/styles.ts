@@ -13,7 +13,7 @@ export const HomeContainer = styled.div`
   }
 
   @media ${breakpoints.desktop} {
-    height: calc(100vh - 104px);
+    height: calc(100vh - 6.5rem);
     padding: 0;
   }
 `

@@ -16,12 +16,12 @@ export const HeaderContainer = styled.header`
   div {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.75rem;
   }
 
   a {
-    height: 38px;
-    width: 38px;
+    height: 2.5rem;
+    width: 2.5rem;
     border-radius: 6px;
     background: var(--yellow-light);
 
@@ -39,11 +39,11 @@ export const Location = styled.span`
   background: var(--purple-light);
   color: var(--purple-dark);
   border-radius: 6px;
-  font-size: 14px;
-  padding: 10px 8px;
+  font-size: 0.875;
+  padding: 0.625rem 0.5rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 0.25rem;
 `
