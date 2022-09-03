@@ -1,14 +1,17 @@
 import styled from 'styled-components'
+import { breakpoints } from '../../styles/breakpoints'
 
 export const HeaderContainer = styled.header`
-  height: 104px;
+  height: 6.5rem;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  max-width: 1120px;
+  max-width: 70rem;
   margin: 0 auto;
+
+  padding: 2rem;
 
   div {
     display: flex;
@@ -25,6 +28,10 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  @media ${breakpoints.desktop} {
+    padding: 0;
   }
 `
 

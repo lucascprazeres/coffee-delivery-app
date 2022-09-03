@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { breakpoints } from '../../styles/breakpoints'
 
 export const ProductCardContainer = styled.div`
   display: flex;
@@ -7,10 +8,14 @@ export const ProductCardContainer = styled.div`
   gap: 1rem;
   background: var(--base-card);
   height: 310px;
-  width: 256px;
+  width: 100%;
   padding: 1rem;
   border-top-right-radius: 36px;
   border-bottom-left-radius: 36px;
+
+  @media ${breakpoints.tablet} {
+    width: 256px;
+  }
 
   img {
     margin-top: -2rem;
