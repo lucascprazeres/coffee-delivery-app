@@ -9,6 +9,7 @@ export const HomeContainer = styled.div`
 
 export const HomeContent = styled.main`
   height: 100%;
+  padding-bottom: 5rem;
 `
 
 export const HeroSection = styled.section`
@@ -45,14 +46,23 @@ export const HeroSection = styled.section`
 `
 
 export const ProductsSection = styled.section`
-  height: 100%;
+  height: auto;
 
   max-width: 1120px;
   margin: 0 auto;
+
+  padding-bottom: 5rem;
 
   h2 {
     font-size: 32px;
     color: var(--base-subtitle);
     margin-bottom: 3rem;
   }
+`
+
+export const ProductList = styled.ul`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 `
