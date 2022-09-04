@@ -2,7 +2,11 @@ import { Minus, Plus } from 'phosphor-react'
 import { useState } from 'react'
 import { ProductAmountInputContainer } from './styles'
 
-export function ProductAmountInput() {
+interface ProductAmountInputProps {
+  height?: number
+}
+
+export function ProductAmountInput(props: ProductAmountInputProps) {
   const [productAmount, setProductAmount] = useState(0)
 
   function increaseProductAmount() {
@@ -16,7 +20,7 @@ export function ProductAmountInput() {
   }
 
   return (
-    <ProductAmountInputContainer role="input">
+    <ProductAmountInputContainer role="input" $height={props.height}>
       <button onClick={decreaseProductAmount}>
         <Minus weight="bold" />
       </button>
