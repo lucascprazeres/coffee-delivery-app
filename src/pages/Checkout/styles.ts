@@ -170,3 +170,91 @@ export const PaymentMethod = styled.label<PaymentMethodProps>`
     width: 178px;
   }
 `
+
+export const OrderSummary = styled.aside`
+  width: 100%;
+  border-radius: 6px;
+  background: var(--base-card);
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  img {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  @media ${breakpoints.desktop} {
+    width: 448px;
+  }
+`
+
+export const ProductSummary = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+  border-bottom: 2px solid var(--base-button);
+`
+
+export const ProductInfo = styled.div`
+  width: 100%;
+
+  > div {
+    margin-bottom: 0.5rem;
+  }
+`
+
+export const ProductSummaryTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+export const RemoveProductButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`
+
+export const ProductSummaryControls = styled.div`
+  > div {
+    margin-bottom: 0.5rem;
+  }
+`
+
+export const CheckoutPrices = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`
+
+export const PartialPrice = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+`
+
+export const TotalPrice = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--base-subtitle);
+  font-weight: bold;
+  font-size: 20px;
+`
+
+export const OrderButton = styled.button`
+  cursor: pointer;
+  border: 0;
+  border-radius: 6px;
+  height: 48px;
+  width: 100%;
+  background: var(--yellow);
+  color: var(--white);
+  font-weight: bold;
+  font-size: 14px;
+`

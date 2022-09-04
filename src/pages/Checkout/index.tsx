@@ -10,12 +10,39 @@ import {
   Legend,
   PaymentMethod,
   PaymentMethods,
+  OrderSummary,
+  OrderButton,
+  PartialPrice,
+  TotalPrice,
+  ProductSummary,
+  ProductSummaryTitle,
+  ProductInfo,
+  ProductSummaryControls,
+  CheckoutPrices,
 } from './styles'
 
-export function Checkout() {
-  const { register, watch } = useForm()
+import expressoImg from '../../assets/images/expresso-tradicional.png'
+import { ProductAmountInput } from '../../components/ProductAmountInput'
 
-  const paymentMethod = watch('payment-method')
+interface AddressFormData {
+  CEP: string
+  city: string
+  complement: string
+  neighborhood: string
+  payment_method: string
+  state: string
+  street: string
+  house_number: string
+}
+
+export function Checkout() {
+  const { register, watch, handleSubmit } = useForm<AddressFormData>()
+
+  const paymentMethod = watch('payment_method')
+
+  async function handleOrderProduct(address: AddressFormData) {
+    console.log(address)
+  }
 
   return (
     <CheckoutContainer>
@@ -41,7 +68,7 @@ export function Checkout() {
                 type="number"
                 placeholder="Número"
                 maxWidth={7}
-                {...register('street_number')}
+                {...register('house_number')}
               />
               <Input placeholder="Complemento" {...register('complement')} />
             </InputGroup>
@@ -80,7 +107,7 @@ export function Checkout() {
                   type="radio"
                   id="credit-card"
                   value="credit-card"
-                  {...register('payment-method')}
+                  {...register('payment_method')}
                 />
               </PaymentMethod>
 
@@ -94,7 +121,7 @@ export function Checkout() {
                   type="radio"
                   id="debit-card"
                   value="debit-card"
-                  {...register('payment-method')}
+                  {...register('payment_method')}
                 />
               </PaymentMethod>
 
@@ -105,16 +132,50 @@ export function Checkout() {
                   type="radio"
                   id="cash"
                   value="cash"
-                  {...register('payment-method')}
+                  {...register('payment_method')}
                 />
               </PaymentMethod>
             </PaymentMethods>
           </PaymentMethodSelector>
         </Form>
       </div>
-      <aside>
+      <div>
         <h2>Cafés selecionados</h2>
-      </aside>
+
+        <OrderSummary>
+          <ProductSummary>
+            <img src={expressoImg} alt="" />
+            <ProductInfo>
+              <ProductSummaryTitle>
+                <span>Expresso Tradicional</span>
+                <strong>R$ 9,90</strong>
+              </ProductSummaryTitle>
+
+              <ProductSummaryControls>
+                <ProductAmountInput height={2} />
+              </ProductSummaryControls>
+            </ProductInfo>
+          </ProductSummary>
+
+          <CheckoutPrices>
+            <PartialPrice>
+              <span>Total de itens</span>
+              <span>R$ 29,70</span>
+            </PartialPrice>
+            <PartialPrice>
+              <span>Entrega</span>
+              <span>R$ 3,50</span>
+            </PartialPrice>
+            <TotalPrice>
+              <span>Total</span>
+              <strong>R$ 33,20</strong>
+            </TotalPrice>
+          </CheckoutPrices>
+          <OrderButton onClick={handleSubmit(handleOrderProduct)}>
+            CONFIRMAR PEDIDO
+          </OrderButton>
+        </OrderSummary>
+      </div>
     </CheckoutContainer>
   )
 }

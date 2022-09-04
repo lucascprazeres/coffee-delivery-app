@@ -1,8 +1,12 @@
 import styled from 'styled-components'
 
-export const ProductAmountInputContainer = styled.div`
+interface ProductAmountInputContainerProps {
+  $height?: number
+}
+
+export const ProductAmountInputContainer = styled.div<ProductAmountInputContainerProps>`
   width: 72px;
-  height: 2.5rem;
+  height: ${(props) => props.$height || 2.5}rem;
   background: var(--base-button);
   border-radius: 6px;
 
