@@ -1,4 +1,7 @@
 import { ShoppingCart } from 'phosphor-react'
+import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { useCart } from '../../hooks/useCart'
 import { Product } from '../../pages/Home/constants'
 import { ProductAmountInput } from '../ProductAmountInput'
 import { ProductCardContainer } from './styles'
@@ -8,12 +11,20 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { cart, addProductToCart, decreaseProductAmountOnCart } = useCart()
+
+  const productOnCart = cart.products.find((prod) => prod.id === product.id)
+
   const priceFormated = new Intl.NumberFormat('pt-br', {
     style: 'currency',
     currency: 'BRL',
   })
     .format(product.price / 100)
     .replace(/[R$]/g, '') // remove R$
+
+  const productAmount = useMemo(() => {
+    return productOnCart?.amount || 0
+  }, [productOnCart])
 
   return (
     <ProductCardContainer>
@@ -32,10 +43,16 @@ export function ProductCard({ product }: ProductCardProps) {
         </span>
 
         <div>
-          <ProductAmountInput />
-          <a href="#">
+          <ProductAmountInput
+            value={productAmount}
+            onIncreaseProductAmount={() => addProductToCart(product)}
+            onDecreaseProductAmount={() =>
+              decreaseProductAmountOnCart(product.id)
+            }
+          />
+          <Link to="/checkout">
             <ShoppingCart color="#fff" size={20} weight="fill" />
-          </a>
+          </Link>
         </div>
       </footer>
     </ProductCardContainer>
