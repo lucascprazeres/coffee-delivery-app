@@ -1,4 +1,4 @@
-import { CreditCard, CurrencyDollar, MapPin } from 'phosphor-react'
+import { CreditCard, CurrencyDollar, MapPin, Trash } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { Input } from '../../components/Input'
 import {
@@ -19,6 +19,7 @@ import {
   ProductInfo,
   ProductSummaryControls,
   CheckoutPrices,
+  RemoveProductFromCartButton,
 } from './styles'
 
 import { ProductAmountInput } from '../../components/ProductAmountInput'
@@ -179,6 +180,11 @@ export function Checkout() {
                       decreaseProductAmountOnCart(product.id)
                     }
                   />
+
+                  <RemoveProductFromCartButton>
+                    <Trash color="#8047F8" size={16} />
+                    REMOVER
+                  </RemoveProductFromCartButton>
                 </ProductSummaryControls>
               </ProductInfo>
             </ProductSummary>
