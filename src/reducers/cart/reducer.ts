@@ -43,15 +43,15 @@ export function cartReducer(state: CartState, action: any) {
         (product) => product.id === action.payload.productId,
       )
 
-      if (state.products[productIndex].amount === 0) {
+      if (state.products[productIndex].amount > 1) {
         return produce(state, (draft) => {
-          draft.products.splice(productIndex, 1)
+          draft.products[productIndex].amount -= 1
           draft.totalFee -= state.products[productIndex].price
         })
       }
 
       return produce(state, (draft) => {
-        draft.products[productIndex].amount -= 1
+        draft.products.splice(productIndex, 1)
         draft.totalFee -= state.products[productIndex].price
       })
     }

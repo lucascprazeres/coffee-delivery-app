@@ -17,7 +17,7 @@ export function addProductToCartAction(product: Product) {
 
 export function decreaseProductAmountOnCartAction(productId: string) {
   return {
-    type: ActionTypes.RemoveProductFromCart,
+    type: ActionTypes.DecreaseProductAmountOnCart,
     payload: {
       productId,
     },

@@ -21,8 +21,10 @@ import {
   CheckoutPrices,
 } from './styles'
 
-import expressoImg from '../../assets/images/expresso-tradicional.png'
 import { ProductAmountInput } from '../../components/ProductAmountInput'
+import { useCart } from '../../hooks/useCart'
+import { useMemo } from 'react'
+import { DELIVERY_FEE } from './constants'
 
 interface AddressFormData {
   CEP: string
@@ -37,12 +39,28 @@ interface AddressFormData {
 
 export function Checkout() {
   const { register, watch, handleSubmit } = useForm<AddressFormData>()
+  const { cart, addProductToCart, decreaseProductAmountOnCart } = useCart()
 
   const paymentMethod = watch('payment_method')
 
   async function handleOrderProduct(address: AddressFormData) {
     console.log(address)
   }
+
+  function formatPrice(price: number) {
+    return new Intl.NumberFormat('pt-br', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(price / 100)
+  }
+
+  const productFee = useMemo(() => {
+    return cart.products.reduce((total, product) => {
+      return total + product.price * product.amount
+    }, 0)
+  }, [cart.products])
+
+  const totalFee = productFee + DELIVERY_FEE
 
   return (
     <CheckoutContainer>
@@ -143,32 +161,41 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
 
         <OrderSummary>
-          <ProductSummary>
-            <img src={expressoImg} alt="" />
-            <ProductInfo>
-              <ProductSummaryTitle>
-                <span>Expresso Tradicional</span>
-                <strong>R$ 9,90</strong>
-              </ProductSummaryTitle>
+          {cart.products.map((product) => (
+            <ProductSummary key={product.id}>
+              <img src={product.imgUrl} alt={`Xícara de ${product.title}`} />
+              <ProductInfo>
+                <ProductSummaryTitle>
+                  <span>{product.title}</span>
+                  <strong>{formatPrice(product.price * product.amount)}</strong>
+                </ProductSummaryTitle>
 
-              <ProductSummaryControls>
-                <ProductAmountInput height={2} />
-              </ProductSummaryControls>
-            </ProductInfo>
-          </ProductSummary>
+                <ProductSummaryControls>
+                  <ProductAmountInput
+                    height={2}
+                    value={product.amount}
+                    onIncreaseProductAmount={() => addProductToCart(product)}
+                    onDecreaseProductAmount={() =>
+                      decreaseProductAmountOnCart(product.id)
+                    }
+                  />
+                </ProductSummaryControls>
+              </ProductInfo>
+            </ProductSummary>
+          ))}
 
           <CheckoutPrices>
             <PartialPrice>
               <span>Total de itens</span>
-              <span>R$ 29,70</span>
+              <span>{formatPrice(productFee)}</span>
             </PartialPrice>
             <PartialPrice>
               <span>Entrega</span>
-              <span>R$ 3,50</span>
+              <span>{formatPrice(DELIVERY_FEE)}</span>
             </PartialPrice>
             <TotalPrice>
               <span>Total</span>
-              <strong>R$ 33,20</strong>
+              <strong>{formatPrice(totalFee)}</strong>
             </TotalPrice>
           </CheckoutPrices>
           <OrderButton onClick={handleSubmit(handleOrderProduct)}>
