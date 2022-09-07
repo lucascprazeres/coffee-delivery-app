@@ -213,16 +213,23 @@ export const ProductSummaryTitle = styled.div`
   justify-content: space-between;
 `
 
-export const RemoveProductButton = styled.button`
+export const RemoveProductFromCartButton = styled.button`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  background: var(--base-button);
+  border: 0;
+  border-radius: 6px;
+  height: 2rem;
+  width: 5.625rem;
+  font-size: 0.75rem;
 `
 
 export const ProductSummaryControls = styled.div`
-  > div {
-    margin-bottom: 0.5rem;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `
 
 export const CheckoutPrices = styled.div`
