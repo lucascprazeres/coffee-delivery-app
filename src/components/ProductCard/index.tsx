@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../../hooks/useCart'
 import { Product } from '../../pages/Home/constants'
+import { formatPrice, removeBRLPrefix } from '../../utils/currency'
 import { ProductAmountInput } from '../ProductAmountInput'
 import { ProductCardContainer } from './styles'
 
@@ -15,12 +16,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const productOnCart = cart.products.find((prod) => prod.id === product.id)
 
-  const priceFormated = new Intl.NumberFormat('pt-br', {
-    style: 'currency',
-    currency: 'BRL',
-  })
-    .format(product.price / 100)
-    .replace(/[R$]/g, '') // remove R$
+  const priceFormated = formatPrice(product.price / 100)
+  const priceFormatedWithNoPrefix = removeBRLPrefix(priceFormated)
 
   const productAmount = useMemo(() => {
     return productOnCart?.amount || 0
@@ -39,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
       <footer>
         <span>
-          R$ <strong>{priceFormated}</strong>
+          R$ <strong>{priceFormatedWithNoPrefix}</strong>
         </span>
 
         <div>

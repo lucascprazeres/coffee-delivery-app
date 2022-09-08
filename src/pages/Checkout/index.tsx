@@ -1,5 +1,7 @@
 import { CreditCard, CurrencyDollar, MapPin, Trash } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
+import cep, { CEP } from 'cep-promise'
+
 import { Input } from '../../components/Input'
 import {
   CheckoutContainer,
@@ -24,8 +26,11 @@ import {
 
 import { ProductAmountInput } from '../../components/ProductAmountInput'
 import { useCart } from '../../hooks/useCart'
-import { useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { DELIVERY_FEE } from './constants'
+import { removeNonDigits } from '../../utils/string'
+import { maskCEP } from '../../utils/cep'
+import { formatPrice } from '../../utils/currency'
 
 interface AddressFormData {
   CEP: string
@@ -39,21 +44,13 @@ interface AddressFormData {
 }
 
 export function Checkout() {
-  const { register, watch, handleSubmit } = useForm<AddressFormData>()
+  const { register, watch, handleSubmit, setValue, getValues } =
+    useForm<AddressFormData>()
   const { cart, addProductToCart, decreaseProductAmountOnCart } = useCart()
 
   const paymentMethod = watch('payment_method')
-
-  async function handleOrderProduct(address: AddressFormData) {
-    console.log(address)
-  }
-
-  function formatPrice(price: number) {
-    return new Intl.NumberFormat('pt-br', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(price / 100)
-  }
+  const cepAddress = watch('CEP')
+  const cepIsFilled = cepAddress?.length === 9
 
   const productFee = useMemo(() => {
     return cart.products.reduce((total, product) => {
@@ -62,6 +59,39 @@ export function Checkout() {
   }, [cart.products])
 
   const totalFee = productFee + DELIVERY_FEE
+
+  async function handleOrderProduct(address: AddressFormData) {
+    // TODO: simular envio a api
+    console.log(address)
+  }
+
+  function handleMaskCEP() {
+    const sanitizedCEP = removeNonDigits(getValues('CEP'))
+    const maskedCEP = maskCEP(sanitizedCEP)
+    setValue('CEP', maskedCEP)
+  }
+
+  const fillAddressForm = useCallback(
+    (address: CEP) => {
+      setValue('street', address.street)
+      setValue('neighborhood', address.neighborhood)
+      setValue('city', address.city)
+      setValue('state', address.state)
+    },
+    [setValue],
+  )
+
+  const handleFetchCEP = useCallback(async () => {
+    const sanitizedCEP = removeNonDigits(cepAddress)
+    const address = await cep(sanitizedCEP)
+    fillAddressForm(address)
+  }, [cepAddress, fillAddressForm])
+
+  useEffect(() => {
+    if (cepIsFilled) {
+      handleFetchCEP()
+    }
+  }, [handleFetchCEP, cepIsFilled])
 
   return (
     <CheckoutContainer>
@@ -78,9 +108,14 @@ export function Checkout() {
               </div>
             </Legend>
 
-            <Input placeholder="CEP" maxWidth={12.5} {...register('CEP')} />
+            <Input
+              placeholder="CEP"
+              maxWidth={12.5}
+              {...register('CEP')}
+              onKeyUp={handleMaskCEP}
+            />
 
-            <Input placeholder="Rua" {...register('street')} />
+            <Input placeholder="Rua" {...register('street')} readOnly />
 
             <InputGroup>
               <Input
@@ -97,9 +132,15 @@ export function Checkout() {
                 placeholder="Bairro"
                 maxWidth={12.5}
                 {...register('neighborhood')}
+                readOnly
               />
-              <Input placeholder="Cidade" {...register('city')} />
-              <Input placeholder="UF" maxWidth={3.75} {...register('state')} />
+              <Input placeholder="Cidade" {...register('city')} readOnly />
+              <Input
+                placeholder="UF"
+                maxWidth={3.75}
+                {...register('state')}
+                readOnly
+              />
             </InputGroup>
           </Address>
 
