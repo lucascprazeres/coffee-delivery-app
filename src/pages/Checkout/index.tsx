@@ -31,21 +31,29 @@ import { DELIVERY_FEE } from './constants'
 import { removeNonDigits } from '../../utils/string'
 import { maskCEP } from '../../utils/cep'
 import { formatPrice } from '../../utils/currency'
+import { useNavigate } from 'react-router-dom'
 
-interface AddressFormData {
+export enum PaymentMethodEnum {
+  CreditCard = 'credit-card',
+  DebitCard = 'debit-card',
+  Cash = 'cash',
+}
+
+export interface CheckoutFormData {
   CEP: string
   city: string
   complement: string
   neighborhood: string
-  payment_method: string
+  payment_method: PaymentMethodEnum
   state: string
   street: string
   house_number: string
 }
 
 export function Checkout() {
+  const navigate = useNavigate()
   const { register, watch, handleSubmit, setValue, getValues } =
-    useForm<AddressFormData>()
+    useForm<CheckoutFormData>()
   const { cart, addProductToCart, decreaseProductAmountOnCart } = useCart()
 
   const paymentMethod = watch('payment_method')
@@ -60,9 +68,23 @@ export function Checkout() {
 
   const totalFee = productFee + DELIVERY_FEE
 
-  async function handleOrderProduct(address: AddressFormData) {
+  async function handleOrderProduct(checkout: CheckoutFormData) {
+    const products = cart.products.map((product) => ({
+      id: product.id,
+      price: product.price,
+    }))
+    const { totalFee } = cart
+
+    const order = {
+      checkout,
+      products,
+      totalFee,
+    }
+
     // TODO: simular envio a api
-    console.log(address)
+    console.log(order)
+
+    navigate('/success', { state: { checkout } })
   }
 
   function handleMaskCEP() {
@@ -158,40 +180,43 @@ export function Checkout() {
 
             <PaymentMethods>
               <PaymentMethod
-                htmlFor="credit-card"
-                isActive={paymentMethod === 'credit-card'}
+                htmlFor={PaymentMethodEnum.CreditCard}
+                isActive={paymentMethod === PaymentMethodEnum.CreditCard}
               >
                 <CreditCard color="#8047F8" size={16} />
                 CARTÃO DE CRÉDITO
                 <input
                   type="radio"
-                  id="credit-card"
-                  value="credit-card"
+                  id={PaymentMethodEnum.CreditCard}
+                  value={PaymentMethodEnum.CreditCard}
                   {...register('payment_method')}
                 />
               </PaymentMethod>
 
               <PaymentMethod
-                htmlFor="debit-card"
-                isActive={paymentMethod === 'debit-card'}
+                htmlFor={PaymentMethodEnum.DebitCard}
+                isActive={paymentMethod === PaymentMethodEnum.DebitCard}
               >
                 <CreditCard color="#8047F8" size={16} />
                 CARTÃO DE DÉBITO
                 <input
                   type="radio"
-                  id="debit-card"
-                  value="debit-card"
+                  id={PaymentMethodEnum.DebitCard}
+                  value={PaymentMethodEnum.DebitCard}
                   {...register('payment_method')}
                 />
               </PaymentMethod>
 
-              <PaymentMethod htmlFor="cash" isActive={paymentMethod === 'cash'}>
+              <PaymentMethod
+                htmlFor={PaymentMethodEnum.Cash}
+                isActive={paymentMethod === PaymentMethodEnum.Cash}
+              >
                 <CreditCard color="#8047F8" size={16} />
                 DINHEIRO
                 <input
                   type="radio"
-                  id="cash"
-                  value="cash"
+                  id={PaymentMethodEnum.Cash}
+                  value={PaymentMethodEnum.Cash}
                   {...register('payment_method')}
                 />
               </PaymentMethod>
