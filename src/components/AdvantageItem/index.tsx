@@ -1,14 +1,15 @@
 import { Icon } from 'phosphor-react'
+import { ReactElement, ReactNode } from 'react'
 import { AdvantageItemContainer, IconContainer } from './styles'
 
 interface AdvantageItemProps {
-  text: string
+  children: ReactElement | ReactNode
   icon: Icon
   bgColor: string
 }
 
 export function AdvantageItem({
-  text,
+  children,
   icon: Icon,
   bgColor,
 }: AdvantageItemProps) {
@@ -18,7 +19,7 @@ export function AdvantageItem({
         <Icon weight="fill" size={16} color="#fff" />
       </IconContainer>
 
-      <p>{text}</p>
+      {children}
     </AdvantageItemContainer>
   )
 }

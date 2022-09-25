@@ -16,8 +16,10 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const productOnCart = cart.products.find((prod) => prod.id === product.id)
 
-  const priceFormated = formatPrice(product.price / 100)
+  const priceFormated = formatPrice(product.price)
   const priceFormatedWithNoPrefix = removeBRLPrefix(priceFormated)
+
+  console.log(product.price, priceFormated)
 
   const productAmount = useMemo(() => {
     return productOnCart?.amount || 0

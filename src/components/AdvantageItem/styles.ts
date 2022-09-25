@@ -5,8 +5,14 @@ export const AdvantageItemContainer = styled.li`
   align-items: center;
   gap: 0.75rem;
 
-  p {
+  p,
+  span {
     font-size: 1rem;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
   }
 `
 
