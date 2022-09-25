@@ -29,29 +29,21 @@ export function Home() {
             </div>
 
             <ul>
-              <AdvantageItem
-                icon={ShoppingCart}
-                bgColor="#C47F17"
-                text="Compra simples e segura"
-              />
+              <AdvantageItem icon={ShoppingCart} bgColor="#C47F17">
+                <p>Compra simples e segura</p>
+              </AdvantageItem>
 
-              <AdvantageItem
-                icon={Package}
-                bgColor="#574F4D"
-                text="Embalagem mantém o café intacto"
-              />
+              <AdvantageItem icon={Package} bgColor="#574F4D">
+                <p>Embalagem mantém o café intacto</p>
+              </AdvantageItem>
 
-              <AdvantageItem
-                icon={Timer}
-                bgColor="#DBAC2C"
-                text="Entrega rápida e rastreada"
-              />
+              <AdvantageItem icon={Timer} bgColor="#DBAC2C">
+                <p>Entrega rápida e rastreada</p>
+              </AdvantageItem>
 
-              <AdvantageItem
-                icon={Coffee}
-                bgColor="#8047F8"
-                text="O café chega fresquinho até você"
-              />
+              <AdvantageItem icon={Coffee} bgColor="#8047F8">
+                <p>O café chega fresquinho até você</p>
+              </AdvantageItem>
             </ul>
           </div>
           <img src={bgHeroImg} alt="" />
